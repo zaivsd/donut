@@ -1,10 +1,14 @@
+from time import sleep
+
 class Vector2():
     def __init__(self, x:int, y:int):
         self.x = x
         self.y = y
 
-terminal_width = 80
-terminal_height = 22
+def set_terminal_size(size:Vector2):
+    global terminal_width, terminal_height
+    terminal_width = size.x
+    terminal_height = size.y
 
 def new_frame():
     global frame_map
@@ -15,7 +19,10 @@ def new_frame():
             frame_map += "."
         frame_map += "\n"
 
-def draw_dot(pos:Vector2):
+def draw_frame():
+    print("".join(frame_map), end="\033[3J\033[2J\033[H")
+
+def draw_point(pos:Vector2):
     i = 0
     for y in range(terminal_height):
         i = y * (terminal_width + 1)
@@ -23,11 +30,14 @@ def draw_dot(pos:Vector2):
             for x in range(terminal_width):
                 if x == pos.x:
                     frame_map[i] = "@"
+                    return
                 i += 1
+
+set_terminal_size(Vector2(80, 22))
 
 new_frame()
 
-draw_dot(Vector2(10, 2))
-draw_dot(Vector2(20, 13))
+draw_point(Vector2(0, 0))
+draw_point(Vector2(79, 21))
 
-print("".join(frame_map))
+draw_frame()

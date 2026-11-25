@@ -1,4 +1,4 @@
-from time import sleep
+# from time import sleep
 
 class Vector2():
     def __init__(self, x:int, y:int):
@@ -24,15 +24,8 @@ def draw_frame():
     print("".join(frame_map), end="\033[3J\033[2J\033[H")
 
 def draw_point(pos:Vector2):
-    i = 0
-    for y in range(terminal_height):
-        i = y * (terminal_width + 1)
-        if y == pos.y:
-            for x in range(terminal_width):
-                if x == pos.x:
-                    frame_map[i] = "@"
-                    return
-                i += 1
+    i = pos.y * (terminal_width + 1) + pos.x
+    frame_map[i] = "@"
 
 def draw_line(pos0:Vector2, pos1:Vector2):
     pass
@@ -44,4 +37,5 @@ new_frame()
 draw_point(Vector2(0, 0))
 draw_point(Vector2(79, 21))
 
-draw_frame()
+# draw_frame()
+print("".join(frame_map))
